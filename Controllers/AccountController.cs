@@ -24,34 +24,40 @@ namespace Demo_Elmah.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        //[HttpGet("getalluser")]
-        //public async Task<ActionResult<AddUserResponse>> GetAllUserAsync(AddUserRequest request)
-        //{
-        //    //return Ok(await _accountService.GetAllUserAsync(request));
-        //}
+        [HttpGet("getalluser")]
+        public async Task<ActionResult<object>> GetAllUserAsync()
+        {
+            return Ok(await _accountService.GetUsersAsync());
+        }
 
         /// <summary>
         /// get user by email include roles
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        //[HttpGet("getuserbyemail")]
-        //public async Task<ActionResult<AddUserResponse>> GetUserbyEmailAsync(AddUserRequest request)
-        //{
-        //    return Ok(await _accountService.GetUserByEmailAsync(request));
-        //}
+        [HttpGet("getuserbyemail")]
+        public async Task<ActionResult<object>> GetUserbyEmailAsync(string request)
+        {
+            return Ok(await _accountService.GetUserByEmailAsync(request));
+        }
+
+        ///get User by Id TBD
 
         /// <summary>
         /// get all role
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        //[HttpGet("getrole")]
-        //public async Task<ActionResult<AddUserResponse>> GetRolesAsync(AddUserRequest request)
-        //{
-        //    return Ok(await _accountService.GetRolesAsync(request));
-        //}
-        //test comment
+        [HttpGet("getrole")]
+        public async Task<ActionResult<object>> GetRolesAsync()
+        {
+            return Ok(await _accountService.GetRolesAsync());
+        }
+        /// <summary>
+        /// user authentication....DB Based
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
@@ -59,6 +65,12 @@ namespace Demo_Elmah.Controllers
             return Ok(await _accountService.AuthenticateAsync(request));
         }
 
+
+        /// <summary>
+        /// Add User to DB
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("adduser")]
         public async Task<ActionResult<AddUserResponse>> RegisterAsync(AddUserRequest request)
         {
@@ -82,12 +94,24 @@ namespace Demo_Elmah.Controllers
         //    else
         //        return Ok(response);
         //}
+
+        /// <summary>
+        /// Add new  Role  to DB
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("addrole")]
         public async Task<IActionResult> AddRoleAsync(AddRoleRequest request)
         {
             return Ok(await _accountService.AddRoleToDBAsync(request));
         }
 
+
+        /// <summary>
+        /// Assign Role to Users
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("assignrole")]
         public async Task<IActionResult> AssignRoleToUser(AssignRoleToUserRequest request)
         {

@@ -356,18 +356,31 @@ namespace Demo_Elmah.Services
             return $"No Role Added to DataBase";
         }
 
-        //public async Task<string> GetUserAsync()
-        //{
+        public async Task<object> GetUsersAsync()
+        {
+            var users =  _userManager.Users;
+            return users;
 
-        //}
-        //public async Task<string> GetUserByEmailAsync()
-        //{
-
-        //}
-        //public async Task<string> AddRoleToDBAsync(AddRoleRequest request)
-        //{
-
-        //}
+        }
+        public async Task<object> GetUserByEmailAsync(string email)
+        {
+            if (email == null)
+            {
+                return "Empty";
+            }
+            var user = await _userManager.FindByEmailAsync(email);
+            return user;
+        }
+        public async Task<object> GetUserByIdAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            return user;
+        }
+        public async Task<object> GetRolesAsync()
+        {
+            var role = _roleManager.Roles;
+            return role;
+        }
 
     }
 }

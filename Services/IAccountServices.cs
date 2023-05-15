@@ -13,5 +13,13 @@ namespace Demo_Elmah.Services
         Task<string> AddRoletoUserAsync(AssignRoleToUserRequest request);
         Task<string> AddRoleToDBAsync(AddRoleRequest request);
 
+        Task<object> GetRolesAsync();
+        Task<object> GetUserByIdAsync(string id);
+        Task<object> GetUserByEmailAsync(string email);
+
+        Task<object> GetUsersAsync();
+
+
+
     }
 }

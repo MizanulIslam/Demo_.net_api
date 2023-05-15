@@ -1,0 +1,38 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "Doe@example.com",
+  "userName": "John123",
+  "password": "Qwerty@1"
+}
+{
+  "email": "Doe@example.com",
+  "userName": "John123",
+  "password": "Qwerty@1"
+}
+{
+  "email": "Ak@example.com",
+  "userName": "Ak2023",
+  "password": "Qwerty@1"
+}
+Add role
+{
+  "role": "string",
+  "roles": [
+"SuperAdmin",
+    "Admin",
+	"Staff",
+
+  ]
+}
+Assign Role
+
+{
+  "userEmail": "Ak@example.com",
+  "role": "string",
+  "roles": [
+    "SuperAdmin",
+    "Admin",
+  ]
+}
+}
