@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using Demo_Elmah.Identity.Roles;
+using Demo_Elmah.Identity.User;
 
 namespace Demo_Elmah.Services
 {
@@ -134,7 +135,7 @@ namespace Demo_Elmah.Services
 
                 if (result.Succeeded)
                 {
-                    //await _userManager.AddToRoleAsync(user, "Viewer");
+                    await _userManager.AddToRoleAsync(user, "Staff");
                     return new AddUserResponse() { UserId = user.Id };
                 }
                 else
@@ -336,6 +337,7 @@ namespace Demo_Elmah.Services
            
             if (request.Roles.Count > 0)
             {
+                
                 IdentityResult roleResult;
                 foreach (var item in request.Roles)
                 {
@@ -362,19 +364,44 @@ namespace Demo_Elmah.Services
             return users;
 
         }
-        public async Task<object> GetUserByEmailAsync(string email)
+        public async Task<GetUserByEmailResponse> GetUserByEmailAsync(string email)
         {
-            if (email == null)
-            {
-                return "Empty";
-            }
+            //if (email == null)
+            //{
+            //    return "Empty";
+            //}
+            //var user = await _userManager.FindByEmailAsync();
+            //return user;
+
             var user = await _userManager.FindByEmailAsync(email);
-            return user;
+            var userRole = _userManager.GetRolesAsync(user);
+            //var role = await _roleManager.FindByIdAsync(id);
+
+            GetUserByEmailResponse userResponse = new GetUserByEmailResponse();
+            userResponse.Id = user.Id;
+            userResponse.Email = user.Email;
+            userResponse.UserName = user.UserName;
+            userResponse.FirstName = user.FirstName;
+            userResponse.LastName = user.LastName;
+            userResponse.Roles = userRole.Result;
+
+            return userResponse;
         }
-        public async Task<object> GetUserByIdAsync(string id)
+        public async Task<GetUserByEmailResponse> GetUserByIdAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            return user;
+            var userRole = _userManager.GetRolesAsync(user);
+            //var role = await _roleManager.FindByIdAsync(id);
+
+            GetUserByEmailResponse userResponse = new GetUserByEmailResponse();
+            userResponse.Id = user.Id;
+            userResponse.Email = user.Email;
+            userResponse.UserName = user.UserName;
+            userResponse.FirstName = user.FirstName;
+            userResponse.LastName = user.LastName;
+            userResponse.Roles = userRole.Result;
+
+            return userResponse;
         }
         public async Task<object> GetRolesAsync()
         {

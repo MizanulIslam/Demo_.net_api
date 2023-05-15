@@ -1,4 +1,6 @@
-﻿using Demo_Elmah.Identity;
+﻿using Azure.Core;
+using Demo_Elmah.Identity;
+using Demo_Elmah.Identity.Infra;
 using Demo_Elmah.Identity.Roles;
 using Demo_Elmah.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -28,6 +30,9 @@ namespace Demo_Elmah.Controllers
         public async Task<ActionResult<object>> GetAllUserAsync()
         {
             return Ok(await _accountService.GetUsersAsync());
+            //var result = await _accountService.GetUsersAsync();
+                
+            //return Ok(new Response<object>(result));
         }
 
         /// <summary>
@@ -41,7 +46,17 @@ namespace Demo_Elmah.Controllers
             return Ok(await _accountService.GetUserByEmailAsync(request));
         }
 
-        ///get User by Id TBD
+
+        /// <summary>
+        /// get User by Id 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet("getuserbyid")]
+        public async Task<ActionResult<object>> GetUserbyIDAsync(string request)
+        {
+            return Ok(await _accountService.GetUserByIdAsync(request));
+        }
 
         /// <summary>
         /// get all role
