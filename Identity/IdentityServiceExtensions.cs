@@ -20,6 +20,7 @@ namespace Demo_Elmah.Identity
                        b => b.MigrationsAssembly(typeof(AppIdentityDbContext).Assembly.FullName)));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
+                 .AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddScoped<IAccountServices, AccountServices>();

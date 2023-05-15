@@ -5,7 +5,7 @@ namespace Demo_Elmah.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize ]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -20,7 +20,8 @@ namespace Demo_Elmah.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("GetWeatherForecast")]
+        [Authorize]
         public IActionResult Get()
         {
             try
@@ -28,7 +29,7 @@ namespace Demo_Elmah.Controllers
                 int i = 5;
                 int z = 0;
                 //var x = (i/z);
-                var result =  Enumerable.Range(1, 5).Select(index => new WeatherForecast
+                var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = Random.Shared.Next(-20, 55),
@@ -38,11 +39,23 @@ namespace Demo_Elmah.Controllers
                 return Ok(result);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpGet("testadmin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PostSecuredData()
+        {
+            return Ok("This Secured Data is available only for Admin Users.");
+        }
+
+
+       
+
     }
 }
