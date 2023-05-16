@@ -36,3 +36,10 @@ Assign Role
   ]
 }
 }
+
+
+{
+  "email": "John@example.com",
+  "userName": "John@example.com",
+  "password": "Qwerty@1"
+}
